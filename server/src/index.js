@@ -1,5 +1,6 @@
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
+const resolvers = require('./resolvers');
 
 const { createStore } = require('./utils');
 
@@ -10,7 +11,7 @@ const store = createStore();
 
 const server = new ApolloServer({
   typeDefs,
-
+  resolvers,
   dataSources: () => ({
     launchAPI: new LaunchAPI(),
     userAPI: new UserAPI({ store }),
@@ -18,9 +19,8 @@ const server = new ApolloServer({
 });
 
 server.listen().then(() => {
-  console.log(`
+  console.log(` 
     Server is running!
-    Listening @ http://localhost:4000
-    Explore at https://studio.apollographql.com/dev
-  `);
+    Listening @ http://localhost:4000 
+    `);
 });
